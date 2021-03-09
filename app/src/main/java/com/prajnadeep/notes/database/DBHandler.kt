@@ -5,7 +5,6 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import com.prajnadeep.notes.database.models.User
-import com.prajnadeep.notes.fragments.SignInFragment
 
 
 const val DATABASE_NAME = "NotesDB"

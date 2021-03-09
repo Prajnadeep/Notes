@@ -1,11 +1,10 @@
 package com.prajnadeep.notes
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.prajnadeep.notes.fragments.SignInFragment
 
 class MainActivity : AppCompatActivity() {
@@ -21,14 +20,18 @@ class MainActivity : AppCompatActivity() {
 
         if (isSignedIn()){
             Toast.makeText(this, "ALREADY SIGNED IN", Toast.LENGTH_SHORT).show()
+
+
             val acct = GoogleSignIn.getLastSignedInAccount(applicationContext)
             if (acct != null) {
                 Toast.makeText(this, "${acct.displayName}", Toast.LENGTH_SHORT).show()
             }
         }
 
+        else{
+            supportFragmentManager.beginTransaction().replace(R.id.mainActivity, signInFragment).commit()
+        }
 
-        supportFragmentManager.beginTransaction().replace(R.id.mainActivity, signInFragment).commit()
     }
 
     private fun isSignedIn() : Boolean {
