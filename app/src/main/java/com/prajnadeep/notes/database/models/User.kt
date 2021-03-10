@@ -3,14 +3,17 @@ package com.prajnadeep.notes.database.models
 class User {
     var id:Int = 0
     var accountId:String = ""
-    var email:String = ""
+    var photoUrl:String = ""
+    var noteTitle:String = ""
+    var noteDesc:String = ""
 
-    constructor(accountID: String, mail :String){
+    constructor(accountID: String, url :String, title:String, desc:String){
         this.accountId = accountID
-        this.email = mail
+        this.photoUrl = url
+        this.noteTitle = title
+        this.noteDesc = desc
     }
 
     constructor(){
-
     }
 }

@@ -10,6 +10,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -72,27 +74,10 @@ class SignInFragment : Fragment() {
     private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) {
         try {
             val account = completedTask.getResult(ApiException::class.java)
-
             // Signed in successfully, show authenticated UI.
             val acct = GoogleSignIn.getLastSignedInAccount(context)
             if (acct != null) {
-                val personName = acct.displayName
-                val personGivenName = acct.givenName
-                val personFamilyName = acct.familyName
-                val personEmail = acct.email
-                val personId = acct.id
-                val personPhoto: Uri? = acct.photoUrl
-
                 insertIntoDB(acct)
-
-
-                //Toast.makeText(context, data.toString(), Toast.LENGTH_LONG).show()
-
-                Toast.makeText(context, "Email "+personEmail.toString(), Toast.LENGTH_SHORT).show()
-                //startActivity(Intent(this,Success::class.java).putExtra("name",personName.toString()))
-
-                val bundle = bundleOf("name" to personName.toString())
-                //findNavController().navigate(R.id.dashboardFragment,bundle)
             }
 
         } catch (e: ApiException) {
@@ -108,15 +93,21 @@ class SignInFragment : Fragment() {
         var db = activity?.let { DBHandler(it) }
 
         //insert into db
-        var user = User(acct.id.toString(),acct.email.toString())
+        var user = User(acct.id.toString(),acct.photoUrl.toString()," "," ")
         db!!.insertUserData(user)
 
         //read data
         val data = db!!.readUserData()
         for (i in 0 until data.size) {
-            println("ID= "+data[i].id.toString() +" Account ID = " + data[i].accountId + " Email = "+data[i].email)
+            println("ID= "+data[i].id.toString() +" Account ID = " + data[i].accountId + " Email = "+data[i].photoUrl)
            // tvResult.append(data.get(i).id.toString() + " " + data.get(i).name + " " + data.get(i).age + "\n")
         }
+
+        val fragmentManager: FragmentManager? = fragmentManager
+        val fragmentTransaction: FragmentTransaction = fragmentManager!!.beginTransaction()
+        fragmentTransaction.replace(R.id.signIN_Fragment, DashBoardFragement())
+        fragmentTransaction.disallowAddToBackStack()
+        fragmentTransaction.commit()
 
         println(data.toString())
     }
