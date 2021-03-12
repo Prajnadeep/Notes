@@ -1,6 +1,6 @@
-# Notes APP
-## Simple Notes App Android
+# Notes App
+### Simple Notes App Android (Kotlin)
 
-### Implements Google Auth (Google SignIn API)
-### SQLite Database
-### Fragments
+#### Implements Google Auth (Google SignIn API)
+#### SQLite Database
+#### Fragments
