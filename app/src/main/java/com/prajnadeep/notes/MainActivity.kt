@@ -9,35 +9,25 @@ import com.prajnadeep.notes.fragments.SignInFragment
 
 class MainActivity : AppCompatActivity() {
 
-
-    private val fragmentManager = supportFragmentManager
-
     private val signInFragment: Fragment = SignInFragment()
     private val dashBoardFragment: Fragment = DashBoardFragement()
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         if (isSignedIn()) {
-            supportFragmentManager.beginTransaction().replace(
-                R.id.containerMainActivity,
-                dashBoardFragment
-            ).commit()
-            val acct = GoogleSignIn.getLastSignedInAccount(applicationContext)
-            if (acct != null) {
-                //Toast.makeText(this, "${acct.displayName}", Toast.LENGTH_SHORT).show()
-            }
+            supportFragmentManager.beginTransaction()
+                    .replace(R.id.containerMainActivity, dashBoardFragment)
+                    .commit()
         } else {
             supportFragmentManager.beginTransaction()
-                .replace(R.id.containerMainActivity, signInFragment).commit()
+                .replace(R.id.containerMainActivity, signInFragment)
+                .commit()
         }
-
     }
 
     private fun isSignedIn(): Boolean {
         return GoogleSignIn.getLastSignedInAccount(applicationContext) != null
     }
-
 }

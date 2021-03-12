@@ -16,8 +16,10 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.Scopes
 import com.google.android.gms.common.SignInButton
 import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.common.api.Scope
 import com.google.android.gms.tasks.Task
 import com.prajnadeep.notes.R
 import com.prajnadeep.notes.database.DBHandler
@@ -41,7 +43,7 @@ class SignInFragment : Fragment() {
         val view =  inflater.inflate(R.layout.fragment_sign_in, container, false)
 
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestEmail()
+                .requestEmail()
             .build()
 
         mGoogleSignInClient = context?.let { GoogleSignIn.getClient(it, gso) }!!
@@ -62,9 +64,9 @@ class SignInFragment : Fragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...)
+
         if (requestCode == RC_SIGN_IN) {
-            // The Task returned from this call is always completed, no need to attach a listener.
+
             val bundle: Bundle? = data?.extras
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             handleSignInResult(task)
@@ -82,7 +84,6 @@ class SignInFragment : Fragment() {
 
         } catch (e: ApiException) {
             // The ApiException status code indicates the detailed failure reason.
-            // Please refer to the GoogleSignInStatusCodes class reference for more information.
             Log.w("ERROR SIGNIN", "signInResult:failed code=" + e.statusCode)
 
         }
@@ -90,26 +91,18 @@ class SignInFragment : Fragment() {
 
     private fun insertIntoDB(acct: GoogleSignInAccount) {
 
-        var db = activity?.let { DBHandler(it) }
+        val db = activity?.let { DBHandler(it) }
 
-        //insert into db
-        var user = User(acct.id.toString(),acct.photoUrl.toString()," "," ")
+        //insert user data into db
+        val user = User(acct.id.toString(),acct.photoUrl.toString(),"temp","temp")
         db!!.insertUserData(user)
 
-        //read data
-        val data = db!!.readUserData()
-        for (i in 0 until data.size) {
-            println("ID= "+data[i].id.toString() +" Account ID = " + data[i].accountId + " Email = "+data[i].photoUrl)
-           // tvResult.append(data.get(i).id.toString() + " " + data.get(i).name + " " + data.get(i).age + "\n")
-        }
-
+        //Goto Dashboard Fragment
         val fragmentManager: FragmentManager? = fragmentManager
         val fragmentTransaction: FragmentTransaction = fragmentManager!!.beginTransaction()
         fragmentTransaction.replace(R.id.signIN_Fragment, DashBoardFragement())
         fragmentTransaction.disallowAddToBackStack()
         fragmentTransaction.commit()
-
-        println(data.toString())
     }
 
 }

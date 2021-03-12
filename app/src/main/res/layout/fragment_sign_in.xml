@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/signIN_Fragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".fragments.SignInFragment"
-    android:id="@+id/signIN_Fragment"
     android:background="@color/white"
-    android:clickable="true">
+    android:clickable="true"
+    tools:context=".fragments.SignInFragment">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/verticalGuidelineStart"
@@ -38,12 +38,13 @@
         app:layout_constraintGuide_end="20dp" />
 
     <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/materialTextView"
         android:layout_width="223dp"
         android:layout_height="69dp"
-        android:fontFamily="@font/varela_round"
+        android:fontFamily="@font/maven_pro_bold"
         android:gravity="center"
         android:text="My Notes"
-        android:textSize="28sp"
+        android:textSize="34sp"
         app:layout_constraintEnd_toEndOf="@id/verticalGuidelineEnd"
         app:layout_constraintStart_toStartOf="@id/verticalGuidelineStart"
         app:layout_constraintTop_toBottomOf="@id/horizontalGuidelineStart" />
@@ -56,5 +57,30 @@
         app:layout_constraintBottom_toTopOf="@+id/horizontalGuidelineEnd"
         app:layout_constraintEnd_toStartOf="@+id/verticalGuidelineEnd"
         app:layout_constraintStart_toStartOf="@+id/verticalGuidelineStart" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="251dp"
+        android:layout_height="219dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/notebook"
+        app:layout_constraintBottom_toTopOf="@+id/sign_in_button"
+        app:layout_constraintEnd_toStartOf="@+id/verticalGuidelineEnd"
+        app:layout_constraintStart_toStartOf="@+id/verticalGuidelineStart"
+        app:layout_constraintTop_toBottomOf="@+id/materialTextView" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/textView"
+        android:layout_width="167dp"
+        android:layout_height="49dp"
+        android:fontFamily="@font/varela_round"
+        android:gravity="center"
+        android:visibility="invisible"
+        android:textColor="@color/black"
+        android:text="Sign in to Continue"
+        app:layout_constraintBottom_toTopOf="@+id/sign_in_button"
+        app:layout_constraintEnd_toStartOf="@+id/verticalGuidelineEnd"
+        app:layout_constraintStart_toStartOf="@+id/verticalGuidelineStart"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
