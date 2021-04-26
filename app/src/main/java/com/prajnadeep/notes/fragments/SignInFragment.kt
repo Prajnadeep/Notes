@@ -85,6 +85,7 @@ class SignInFragment : Fragment() {
         } catch (e: ApiException) {
             // The ApiException status code indicates the detailed failure reason.
             Log.w("ERROR SIGNIN", "signInResult:failed code=" + e.statusCode)
+            Toast.makeText(context,"${e.message}",Toast.LENGTH_LONG).show()
 
         }
     }

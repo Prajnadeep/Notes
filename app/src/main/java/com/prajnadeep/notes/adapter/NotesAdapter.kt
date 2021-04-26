@@ -38,7 +38,5 @@ class NotesAdapter(val noteList: List<User>) : RecyclerView.Adapter<NotesAdapter
             }
         }
     }
-    
 
 }
-
